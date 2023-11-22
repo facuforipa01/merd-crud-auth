@@ -8,13 +8,16 @@ import {
     deleteTask
 } from '../controllers/tasks.controller.js'
 
+import { validateSchema } from "../middlewares/validator.middleware.js";
+import { createTaskSchema } from "../schemas/task.schema.js";
+
 const router = Router()
 
 router.get('/tasks', authRequiere, getTasks )
 router.get('/task/:id', authRequiere, getTask )
 
 
-router.post('/tasks', authRequiere, createTask )
+router.post('/tasks', authRequiere, validateSchema(createTaskSchema), createTask )
 
 router.delete('/task/:id', authRequiere, deleteTask )
 

@@ -23,7 +23,7 @@ Task.init({
     },
     date: {
         type: DataTypes.DATE,
-        allowNull: false,
+        allowNull: true,
         unique: false
     },
     user:{

@@ -9,6 +9,10 @@ export const register = async (req, res) => {
 
     try {
 
+        const userFound = await User.findOne({ where: { email: email } })
+        if (userFound)
+            return res.status(400).json(["The email is already in use"])
+
         const hashedPassword = await bcrypt.hash(password, 10)
 
         const newUser = new User({
@@ -79,7 +83,7 @@ export const profile = async (req, res) => {
 
     const userFound = await User.findOne({ where: { id: req.user.id } })
 
-    if (!userFound) return res.status(400).json({message:"no se encontro el perfil"})
+    if (!userFound) return res.status(400).json({ message: "no se encontro el perfil" })
 
     return res.json({
         message: "Perfil del Usuario",
